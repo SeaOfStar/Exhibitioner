@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Exhibitioner</string>
+
+    <!--Action相关常量-->
+    <!--deviceId相关操作-->
+    <string name="action_request_deviceid">action_request_deviceid</string>
+    <string name="action_deviceid_ready">action_deviceid_ready</string>
+    <string name="key_device_id">key_device_id</string>
+
+    <!--QR图片相关操作-->
+    <string name="action_request_qr">action_request_qr</string>
+    <string name="action_qr_ready">action_qr_ready</string>
+    <string name="title_activity_qrcode">QRCodeActivity</string>
+    <string name="key_qr_bitmap">key_qr_bitmap</string>
+
+    <!--配置wifi的启动命令-->
+    <string name="action_set_wifi_param">action_set_wifi_param</string>
+
+</resources>
