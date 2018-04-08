@@ -23,8 +23,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="action_request_deviceid" />
-
-                <category android:name="android.intent.category.DEFAULT" />
+                <!-- <category android:name="android.intent.category.DEFAULT" /> -->
             </intent-filter>
         </service>
 
@@ -44,6 +43,9 @@
             android:exported="false" />
         <service
             android:name=".service.wifi.HostWifiConfigIntentService"
+            android:exported="false" />
+        <service
+            android:name=".service.DeviceIdMakerIntentService"
             android:exported="false"></service>
     </application>
 

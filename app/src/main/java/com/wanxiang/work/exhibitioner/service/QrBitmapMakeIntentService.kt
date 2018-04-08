@@ -34,7 +34,7 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
     }
 
     /**
-     * 将文字转化成可以bitmap的二进制字符数组，并广播出去
+     * 将文字转化成QRbitmap的二进制字符数组，并广播出去
      */
     private fun handleActionMakeBitmap(content: String, width: Int, height: Int) {
         // 生成bitmap
