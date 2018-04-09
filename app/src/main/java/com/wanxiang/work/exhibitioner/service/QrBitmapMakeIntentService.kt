@@ -38,12 +38,12 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
      */
     private fun handleActionMakeBitmap(content: String, width: Int, height: Int) {
         // 生成bitmap
-        val writer = QRCodeWriter();
-        var hints = HashMap<EncodeHintType, String>()
+        val writer = QRCodeWriter()
+        val hints = HashMap<EncodeHintType, String>()
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8")
 
-        var encode = writer.encode(content, BarcodeFormat.QR_CODE, width, height, hints)
-        var pixels:IntArray = IntArray(width * height) // TODO: 这里的构造有问题
+        val encode = writer.encode(content, BarcodeFormat.QR_CODE, width, height, hints)
+        val pixels:IntArray = IntArray(width * height) // TODO: 这里的构造有问题
 
         for(i in 0 until height) {
             for (j in 0 until width) {
@@ -51,27 +51,27 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
             }
         }
 
-        var bmp = Bitmap.createBitmap(pixels, 0, width, width, height, Bitmap.Config.RGB_565);
+        val bmp = Bitmap.createBitmap(pixels, 0, width, width, height, Bitmap.Config.RGB_565)
 
         // 转化为二进制数组
-        var baos = ByteArrayOutputStream()
+        val baos = ByteArrayOutputStream()
         bmp.compress(Bitmap.CompressFormat.PNG, 100, baos)
 
         // 调用显示页面显示QRCode内容
-        var intent = Intent(getString(R.string.action_qr_ready))
+        val intent = Intent(getString(R.string.action_qr_ready))
         intent.putExtra(getString(R.string.key_qr_bitmap), baos.toByteArray())
         intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
     }
 
     companion object {
-        private val ACTION_MAKE_BITMAP = "com.wanxiang.work.exhibitioner.service.action.make.bitmap"
-        private val EXTRA_PARAM_CONTENT = "com.wanxiang.work.exhibitioner.service.extra.content"
-        private val EXTRA_PARAM_WIDTH = "com.wanxiang.work.exhibitioner.service.extra.width"
-        private val EXTRA_PARAM_HEIGHT = "com.wanxiang.work.exhibitioner.service.extra.height"
+        private const val ACTION_MAKE_BITMAP = "com.wanxiang.work.exhibitioner.service.action.make.bitmap"
+        private const val EXTRA_PARAM_CONTENT = "com.wanxiang.work.exhibitioner.service.extra.content"
+        private const val EXTRA_PARAM_WIDTH = "com.wanxiang.work.exhibitioner.service.extra.width"
+        private const val EXTRA_PARAM_HEIGHT = "com.wanxiang.work.exhibitioner.service.extra.height"
 
-        private val PARAM_DEFALUT_WIDTH: Int = 400
-        private val PARAM_DEFALUT_HEIGHT: Int = 400
+        private const val PARAM_DEFALUT_WIDTH: Int = 400
+        private const val PARAM_DEFALUT_HEIGHT: Int = 400
 
 
         /**
