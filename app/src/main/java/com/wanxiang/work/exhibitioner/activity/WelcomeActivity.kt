@@ -13,6 +13,7 @@ import android.os.IBinder
 import android.util.Log
 import com.wanxiang.work.exhibitioner.R
 import com.wanxiang.work.exhibitioner.service.DeviceIdManagerService
+import com.wanxiang.work.exhibitioner.service.QrBitmapMakeIntentService
 import kotlinx.android.synthetic.main.activity_welcome.*
 
 class WelcomeActivity : AppCompatActivity() {
@@ -23,8 +24,10 @@ class WelcomeActivity : AppCompatActivity() {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             Log.v(TAG, "连接到Service")
             val service = (p1 as DeviceIdManagerService.DeviceIdManagerServiceBinder).getService()
-            val uuidStr = service.getDeviceIdString()
+            val uuidStr = service.deviceIdString
             Log.v(TAG, "取得deviceId： $uuidStr")
+
+            QrBitmapMakeIntentService.startActionMakeQRBitmap(applicationContext, uuidStr)
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {

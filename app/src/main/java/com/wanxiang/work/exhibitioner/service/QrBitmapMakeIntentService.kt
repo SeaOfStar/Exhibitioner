@@ -45,16 +45,9 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
         var encode = writer.encode(content, BarcodeFormat.QR_CODE, width, height, hints)
         var pixels:IntArray = IntArray(width * height) // TODO: 这里的构造有问题
 
-        for(i in 0..height-1) {
-            for (j in 0..width-1) {
-                var value: Int
-                if(encode.get(j, i)) {
-                    value = 0x00
-                }
-                else {
-                    value = -1
-                }
-                pixels[i * width + j] = value
+        for(i in 0 until height) {
+            for (j in 0 until width) {
+                pixels[i * width + j] = if (encode.get(j, i)) 0x00 else -1
             }
         }
 
@@ -64,11 +57,10 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
         var baos = ByteArrayOutputStream()
         bmp.compress(Bitmap.CompressFormat.PNG, 100, baos)
 
-        // 广播出去
+        // 调用显示页面显示QRCode内容
         var intent = Intent(getString(R.string.action_qr_ready))
         intent.putExtra(getString(R.string.key_qr_bitmap), baos.toByteArray())
         intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
-//        sendBroadcast(intent)     // 很奇怪这里不好用，必须使用Start Activity
         startActivity(intent)
     }
 

@@ -16,13 +16,16 @@ class DeviceIdManagerService : Service() {
     private val DEVICE_ID_LOAD_KEY = "DEVICE_ID_KEY"
 
     // 设备ID属性
-    private var deviceId: UUID? = null
+    public lateinit var deviceId: UUID
+        private set
 
-    fun fetchDeviceId() : UUID {
-        return deviceId as UUID
+    override fun onCreate() {
+        super.onCreate()
+        deviceId = loadDeviceId()
     }
 
-    fun getDeviceIdString() : String = fetchDeviceId().toString()
+    val deviceIdString: String
+        get() = deviceId.toString()
 
     private fun loadDeviceId(): UUID {
         // 从配置中读取，如果不存在使用随机数创建一个
@@ -33,43 +36,11 @@ class DeviceIdManagerService : Service() {
         return UUID.fromString(deviceIdStr)
     }
 
-//    //
-//    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-//
-//        if(intent != null) {
-//            Log.v(TAG, "DeviceManagerService接收到命令: ${intent.toString()}")
-//            when (intent.action) {
-//                getString(R.string.action_request_deviceid) -> doBoardCastDeviceId()
-//            }
-//        }
-//        else {
-//            Log.v(TAG, "DeviceManagerService接收到命令: null ...")
-//        }
-//
-//        return super.onStartCommand(intent, flags, startId)
-//    }
-
-//    private fun doBoardCastDeviceId() {
-//        var intent = Intent(getString(R.string.action_deviceid_ready))
-//        intent.putExtra(getString(R.string.key_device_id), getDeviceIdString())
-//        sendBroadcast(intent)
-//        Log.v(TAG, "广播deviceID：${getDeviceIdString()}")
-//
-//        // TODO: 测试用
-//        QrBitmapMakeIntentService.startActionMakeQRBitmap(applicationContext, getDeviceIdString())
-//    }
-
     override fun onBind(intent: Intent): IBinder? {
         return DeviceIdManagerServiceBinder()
     }
 
     inner class DeviceIdManagerServiceBinder : Binder() {
         fun getService(): DeviceIdManagerService = this@DeviceIdManagerService
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
-        deviceId = loadDeviceId()
     }
 }
