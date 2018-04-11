@@ -9,6 +9,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.EncodeHintType
 import com.google.zxing.qrcode.QRCodeWriter
 import com.wanxiang.work.exhibitioner.R
+import com.wanxiang.work.exhibitioner.activity.QRCodeActivity
 import java.io.ByteArrayOutputStream
 
 /**
@@ -43,7 +44,7 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8")
 
         val encode = writer.encode(content, BarcodeFormat.QR_CODE, width, height, hints)
-        val pixels:IntArray = IntArray(width * height) // TODO: 这里的构造有问题
+        val pixels = IntArray(width * height)
 
         for(i in 0 until height) {
             for (j in 0 until width) {
@@ -52,16 +53,7 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
         }
 
         val bmp = Bitmap.createBitmap(pixels, 0, width, width, height, Bitmap.Config.RGB_565)
-
-        // 转化为二进制数组
-        val baos = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.PNG, 100, baos)
-
-        // 调用显示页面显示QRCode内容
-        val intent = Intent(getString(R.string.action_qr_ready))
-        intent.putExtra(getString(R.string.key_qr_bitmap), baos.toByteArray())
-        intent.setFlags(FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+        QRCodeActivity.startShowBitmapAction(applicationContext, bmp)
     }
 
     companion object {

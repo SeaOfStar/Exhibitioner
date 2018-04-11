@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Exhibitioner</string>
+    <string name="app_name">连接设置</string>
 
     <!--Action相关常量-->
     <!--deviceId相关操作-->
@@ -8,10 +8,7 @@
     <string name="key_device_id">key_device_id</string>
 
     <!--QR图片相关操作-->
-    <string name="action_request_qr">action_request_qr</string>
-    <string name="action_qr_ready">action_qr_ready</string>
-    <string name="title_activity_qrcode">QRCodeActivity</string>
-    <string name="key_qr_bitmap">key_qr_bitmap</string>
+    <string name="title_activity_qrcode">扫描二维码连接设备</string>
 
     <!--配置wifi的启动命令-->
     <string name="action_set_wifi_param">action_set_wifi_param</string>

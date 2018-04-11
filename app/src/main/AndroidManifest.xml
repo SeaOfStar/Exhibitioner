@@ -31,11 +31,6 @@
             android:name=".activity.QRCodeActivity"
             android:label="@string/title_activity_qrcode"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="action_qr_ready" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
 
         <service
@@ -46,7 +41,7 @@
             android:exported="false" />
         <service
             android:name=".service.DeviceIdMakerIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>
