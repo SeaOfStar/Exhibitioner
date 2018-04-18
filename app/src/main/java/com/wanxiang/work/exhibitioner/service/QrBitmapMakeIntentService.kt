@@ -53,7 +53,7 @@ class QrBitmapMakeIntentService : IntentService("QrBitmapMakeIntentService") {
         }
 
         val bmp = Bitmap.createBitmap(pixels, 0, width, width, height, Bitmap.Config.RGB_565)
-        QRCodeActivity.startShowBitmapAction(applicationContext, bmp)
+        QRCodeActivity.startShowBitmapAction(applicationContext, bmp, true)
     }
 
     companion object {
