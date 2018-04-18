@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.Context
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
+import android.util.Log
 
 /**
  * An [IntentService] subclass for handling asynchronous task requests in
@@ -54,7 +55,23 @@ class HostWifiConfigIntentService : IntentService("HostWifiConfigIntentService")
     }
 
     private fun handleActionStart(ssid: String, password: String, cypt: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        if (wifiManager.isWifiEnabled) {
+            wifiManager.setWifiEnabled(false)
+        }
+
+        var cfg = WifiConfiguration()
+        cfg.SSID = ssid
+        cfg.wepKeys[0] = password
+        cfg.allowedKeyManagement.set(cypt)
+        cfg.wepTxKeyIndex = 0
+
+//        通过反射设置热点
+        val method = wifiManager.javaClass.getMethod("setWifiApEnabled", WifiConfiguration::class.java, java.lang.Boolean.TYPE)
+        val enable = method.invoke(wifiManager, cfg, true) as Boolean
+        if(enable) {
+            Log.d("", "热点已经开启（SSID：$ssid)")
+        }
     }
 
     /**
@@ -110,8 +127,10 @@ class HostWifiConfigIntentService : IntentService("HostWifiConfigIntentService")
      * parameters.
      */
     private fun handleActionStop(ssid: String) {
-        // TODO: Handle action Baz
-        throw UnsupportedOperationException("Not yet implemented")
+        val wifiManager = applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        if (wifiManager.isWifiEnabled) {
+            wifiManager.setWifiEnabled(false)
+        }
     }
 
     companion object {
