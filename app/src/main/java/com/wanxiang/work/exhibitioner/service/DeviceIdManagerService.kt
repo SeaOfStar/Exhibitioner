@@ -41,6 +41,8 @@ class DeviceIdManagerService : Service() {
     }
 
     inner class DeviceIdManagerServiceBinder : Binder() {
-        fun getService(): DeviceIdManagerService = this@DeviceIdManagerService
+        val service
+            get() = this@DeviceIdManagerService
+//        fun getService(): DeviceIdManagerService = this@DeviceIdManagerService
     }
 }

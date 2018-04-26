@@ -43,7 +43,7 @@ class WelcomeActivity : AppCompatActivity() {
     inner class ServiceCon: ServiceConnection{
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             Log.v(TAG, "连接到Service")
-            val service = (p1 as DeviceIdManagerService.DeviceIdManagerServiceBinder).getService()
+            val service = (p1 as DeviceIdManagerService.DeviceIdManagerServiceBinder).service
             val uuidStr = service.deviceIdString
             Log.v(TAG, "取得deviceId： $uuidStr")
 
