@@ -39,9 +39,6 @@
         <service
             android:name=".service.wifi.HostWifiConfigIntentService"
             android:exported="false" />
-        <service
-            android:name=".service.DeviceIdMakerIntentService"
-            android:exported="false" />
     </application>
 
 </manifest>
